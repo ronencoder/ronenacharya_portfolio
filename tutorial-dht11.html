@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Use DHT11 with Arduino: Reading Temperature and Humidity | Ronen Acharya</title>
+  <meta name="description" content="The DHT11 is a basic, ultra low-cost digital temperature and humidity sensor.">
+  <meta name="theme-color" content="#3E58A8">
+  <meta property="og:title" content="How to Use DHT11 with Arduino: Reading Temperature and Humidity | Ronen Acharya">
+  <meta property="og:description"
+    content="The DHT11 is a basic, ultra low-cost digital temperature and humidity sensor.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap"
+    rel="stylesheet">
+  <link rel="icon" href="assets/images/logos/logo.png" type="image/png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site">
+    <div class="wrap bar"><a class="brand" href="index.html"><img src="assets/images/logos/logo.png"
+          alt="Ronen Acharya logo" width="42" height="42"><span>Ronen Acharya</span></a>
+      <button class="menu-btn" aria-label="Open menu" aria-expanded="false"
+        aria-controls="nav"><span></span><span></span><span></span></button>
+      <nav id="nav" aria-label="Main"><a href="index.html">Home</a><a href="about.html">My bio</a><a
+          href="articles.html">Articles</a><a href="tutorials.html" aria-current=page>Tutorials</a><a
+          href="wall-of-fame.html">Wall of fame</a><a href="contact.html">Contact</a></nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="page-head">
+      <div class="wrap">
+        <p class="crumb"><a href="index.html">Home</a> / <a href="tutorials.html">Tutorials</a></p>
+        <h1>How to Use DHT11 with Arduino: Reading Temperature and Humidity</h1>
+        <p>By Ronen Acharya</p>
+      </div>
+    </section>
+    <section class="sec">
+      <div class="wrap read"><img src="assets/images/tutorials/dht11.png"
+          data-fallback="https://images.cdn-files-a.com/uploads/5273627/2000_610980e377f55.png"
+          alt="How to Use DHT11 with Arduino: Reading Temperature and Humidity" class="cover" loading="lazy">
+        <div class="prose">
+          <h2>About this project</h2>
+          <p>The DHT11 humidity and temperature sensor make it really easy to add humidity and temperature data to your
+            DIY electronics projects. It's perfect for remote weather stations, home environmental control systems, and
+            farm or garden automation systems. In this tutorial, I'll explain how the DHT11 measures humidity and how to
+            connect the DHT11 to an Arduino along with some example code you could use in your own projects.</p>
+          <h2>Technical details</h2>
+          <ul>
+            <li>Low cost</li>
+            <li>3 to 5V power and I/O</li>
+            <li>2.5mA max current use during conversion (while requesting data)</li>
+            <li>Good for 20-80% humidity readings</li>
+            <li>Good for 0-50&deg;C temperature readings</li>
+            <li>No more than 1 Hz sampling rate (once every second)</li>
+            <li>Body size 15.5mm x 12mm x 5.5mm</li>
+            <li>4 pins with 0.1&quot; spacing</li>
+          </ul>
+          <h2>Wiring</h2>
+          <ul>
+            <li><strong>VCC:</strong> 3.3 - 5V power supply (sometimes 3.3V isn't enough, in which case try 5V)</li>
+            <li><strong>Data out:</strong> digital pin 2</li>
+            <li><strong>Ground:</strong> ground</li>
+          </ul>
+          <p>Ignore the 3rd pin on the 4-pin sensor, it's not in use. Place a 10K ohm resistor between VCC and the data
+            pin as a pull-up. This isn't needed for the 3-pin PCB-mounted module.</p>
+          <h2>Programming</h2>
+          <p>Install the <strong>DHT sensor library by Adafruit</strong> from the Arduino Library Manager (Sketch &rarr;
+            Include Library &rarr; Manage Libraries&hellip;), then upload:</p>
+          <pre><code>#include "DHT.h"
+#define Type DHT11
+int sensePin=2;
+DHT HT(sensePin,Type);
+float humidity;
+float tempC;
+float tempF;
+int setTime=500;
+
+void setup()
+{
+  Serial.begin(9600);
+  Serial.println("DHT11 Temperature and Humidity Sensor Test_RAC");
+  HT.begin();
+  delay(setTime);
+}
+
+void loop()
+{
+  humidity=HT.readHumidity();
+  tempC=HT.readTemperature();
+  tempF=HT.readTemperature(true);
+  Serial.print("Humidity: ");
+  Serial.print(humidity);
+  Serial.print("% Temperature ");
+  Serial.print(tempC);
+  Serial.print("&deg;C ");
+  Serial.print(tempF);
+  Serial.println("&deg;F ");
+  delay(2000);
+}</code></pre>
+          <!-- PASTE THE REMAINING TEXT FROM SITE123 BELOW THIS LINE -->
+        </div>
+        <aside class="more-list">
+          <h3>More tutorials</h3>
+          <ul>
+            <li><a href="tutorial-arduino-intro.html">An Introduction to the Arduino: Overview and Getting Started</a>
+            </li>
+          </ul><a class="more" href="tutorials.html">Back to tutorials</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <footer class="site">
+    <div class="wrap foot">
+      <div><strong>Ronen Acharya</strong>
+        <p>Kathmandu, Bagmati Province, Nepal</p>
+      </div>
+      <div class="foot-links">
+        <a class="social-link" href="mailto:ronenacharya68@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6.75A2.75 2.75 0 0 1 5.75 4h12.5A2.75 2.75 0 0 1 21 6.75v10.5A2.75 2.75 0 0 1 18.25 20H5.75A2.75 2.75 0 0 1 3 17.25V6.75zm2.2-.25 6.8 5.1 6.8-5.1H5.2zm13.05 2.23-6.25 4.69a1 1 0 0 1-1.2 0L5.75 8.73v8.52c0 .41.34.75.75.75h10.99a.76.76 0 0 0 .75-.75V8.73z"/></svg>
+        </a>
+        <a class="social-link" href="https://www.linkedin.com/in/ronen-acharya-0a3ab61a7/" rel="noopener" target="_blank" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.94 8.5A1.56 1.56 0 1 1 6.94 5.38a1.56 1.56 0 0 1 0 3.12zm-1.32 1.15h2.64v7.35H5.62V9.65zm4.7 0h2.53v1.03h.04c.35-.67 1.2-1.38 2.48-1.38 2.66 0 3.15 1.75 3.15 4.02v3.68h-2.64v-3.45c0-.82-.02-1.88-1.15-1.88-1.15 0-1.33.9-1.33 1.82v3.51h-2.64V9.65z"/></svg>
+        </a>
+        <a class="social-link" href="https://www.facebook.com/ronen.acharya/" rel="noopener" target="_blank" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.2h2.4l.36-2.8h-2.76V7.86c0-.81.22-1.36 1.4-1.36H16.3V3.96c-.26-.03-1.14-.1-2.17-.1-2.15 0-3.63 1.31-3.63 3.72v2.12H8.1v2.8h2.4V21h3z"/></svg>
+        </a>
+        <a class="social-link" href="https://www.youtube.com/channel/UCwVJqVjuvhjqLaVaWoxanoQ" rel="noopener" target="_blank" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.58 7.19a2.7 2.7 0 0 0-1.89-1.9C17.94 4.8 12 4.8 12 4.8s-5.94 0-7.69.49A2.7 2.7 0 0 0 2.42 7.19 28.3 28.3 0 0 0 2 12a28.3 28.3 0 0 0 .42 4.81 2.7 2.7 0 0 0 1.89 1.9c1.75.49 7.69.49 7.69.49s5.94 0 7.69-.49a2.7 2.7 0 0 0 1.89-1.9A28.3 28.3 0 0 0 22 12a28.3 28.3 0 0 0-.42-4.81zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
+        </a>
+      </div>
+      <p class="copy">&copy; 2026 Ronen Acharya. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+
+</html>
